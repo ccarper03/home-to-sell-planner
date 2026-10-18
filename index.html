@@ -2,766 +2,549 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex, nofollow">
-<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Home-to-Sell Planner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sell &amp; Buy Calculator | Charles Carper</title>
+<meta name="description" content="Move four sliders and compare three ways to sell your home and buy new construction: sell first, buy first, or buy with a home-sale contingency. See your moves, double payments and cash left. No sign-up.">
+<meta property="og:title" content="Sell &amp; Buy Calculator | Charles Carper">
+<meta property="og:description" content="Move four sliders and compare three ways to sell your home and buy your next one. See your moves, double payments and cash left. No sign-up.">
+<meta property="og:url" content="https://charlescarper.com/home-to-sell-planner/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://charlescarper.com/home-to-sell-planner/">
+<meta property="og:image" content="https://charlescarper.com/assets/images/cc-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0F2B4C">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
+<link rel="icon" href="/favicon-96.png?v=2" type="image/png" sizes="96x96">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,600..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="/site.css?v=202610151340">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y130WZZEZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4Y130WZZEZ');</script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "attvv3ekgf");
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Sell & Buy Calculator | Charles Carper", "url": "https://charlescarper.com/home-to-sell-planner/", "description": "Move four sliders and compare three ways to sell your home and buy new construction: sell first, buy first, or buy with a home-sale contingency.", "author": {"@type": "Person", "name": "Charles Carper", "url": "https://charlescarper.com/about"}}</script>
 <style>
-/* Layout: a blueprint worksheet. Situation on the left, ranked options on the right,
-   the move drawn underneath like a construction schedule, then the plan to send. */
-:root {
-  --paper: #f3f6fa;
-  --panel: #ffffff;
-  --ink: #13233d;
-  --muted: #5a6a82;
-  --line: #d4dce7;
-  --grid: #e6ebf2;
-  --accent: #c97a12;
-  --accent-soft: #f6e3c4;
-  --accent-ink: #4a2c00;
-  --navy-soft: #dfe7f3;
-  --good: #2e7a57;
-  --good-soft: #d6efe2;
-  --warn: #a26a12;
-  --warn-soft: #f5e7c9;
-  --bad: #b2452f;
-  --bad-soft: #f6dcd5;
-  --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+/* Sell & Buy Calculator. Sliders on the left, the three ways side by side on the right.
+   Uses the site's Blueprint tokens from /site.css. */
+.calc-sec { padding-block: clamp(36px, 5vw, 64px) var(--section); }
+.calc { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: clamp(20px, 2.6vw, 32px); align-items: start; }
+.calc-in {
+  position: sticky; top: 96px; max-height: calc(100vh - 112px); overflow-y: auto; overscroll-behavior: contain;
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 8px;
+  padding: clamp(20px, 2.2vw, 26px);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #0d1625; --panel: #142038; --ink: #e6edf7; --muted: #9aaac0; --line: #2a3a58; --grid: #1d2b45;
-    --accent: #f0a53a; --accent-soft: #4a3412; --accent-ink: #fde7c4; --navy-soft: #23345a;
-    --good: #5cc196; --good-soft: #17392c; --warn: #e7b24f; --warn-soft: #3d2f13; --bad: #ec8a74; --bad-soft: #43221c;
-    color-scheme: dark;
-  }
+.calc-in h2 { font-size: 28px; margin-bottom: 2px; }
+.calc-in > .hint { margin: 0 0 14px; }
+.calc-field { padding: 12px 0 12px; border-top: 1px solid var(--rule); }
+.calc-field label { display: block; font-weight: 600; font-size: 15.5px; line-height: 1.35; }
+.calc-field output {
+  display: block; font-family: var(--display); font-stretch: 75%; font-weight: 750;
+  font-size: 32px; line-height: 1; margin: 4px 0 6px; color: var(--ink);
 }
-:root[data-theme="dark"] {
-  --paper: #0d1625; --panel: #142038; --ink: #e6edf7; --muted: #9aaac0; --line: #2a3a58; --grid: #1d2b45;
-  --accent: #f0a53a; --accent-soft: #4a3412; --accent-ink: #fde7c4; --navy-soft: #23345a;
-  --good: #5cc196; --good-soft: #17392c; --warn: #e7b24f; --warn-soft: #3d2f13; --bad: #ec8a74; --bad-soft: #43221c;
-  color-scheme: dark;
+.calc-field output small { font: 500 14px/1.3 var(--sans); color: var(--ink-2); margin-left: 8px; letter-spacing: 0; }
+.calc-field .ends { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-2); margin-top: 0; }
+.calc-field .hint { display: block; margin-top: 2px; font-size: 13.5px; line-height: 1.4; }
+.calc-jump { display: none; }
+
+/* Range: navy fill up to the thumb, amber thumb. --p is set by the script. */
+.calc input[type=range] {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 32px; margin: 0;
+  background: transparent; cursor: pointer; --p: 50%;
 }
-* { box-sizing: border-box; }
-body {
-  background: var(--paper);
-  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 28px 28px;
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.5;
+.calc input[type=range]::-webkit-slider-runnable-track {
+  height: 8px; border-radius: 4px;
+  background: linear-gradient(90deg, var(--navy) 0 var(--p), var(--rule) var(--p) 100%);
 }
-.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; gap: 20px; }
-h1, h2, h3 { font-family: var(--font-display); font-stretch: 82%; letter-spacing: 0.005em; text-wrap: balance; margin: 0; }
-h1 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 800; line-height: 1.02; }
-h2 { font-size: 22px; font-weight: 700; }
-h3 { font-size: 18px; font-weight: 700; }
-.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.lede { margin: 8px 0 0; max-width: 62ch; color: var(--muted); }
-header.top { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between; }
-.example-flag { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: var(--accent-soft); color: var(--accent-ink); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px; min-width: 0; }
-.grid { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 20px; align-items: start; }
-@media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
-
-/* Form */
-.situation { display: grid; gap: 16px; }
-.situation h2 { margin-bottom: 2px; }
-.group-title { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 12px; }
-.field { display: grid; gap: 6px; min-width: 0; }
-.field > span, fieldset legend { font-size: 13.5px; font-weight: 600; }
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-input[type="text"], input[type="number"] {
-  width: 100%; font: inherit; font-family: var(--font-mono); font-size: 15px; color: var(--ink);
-  background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px;
+.calc input[type=range]::-moz-range-track { height: 8px; border-radius: 4px; background: var(--rule); }
+.calc input[type=range]::-moz-range-progress { height: 8px; border-radius: 4px; background: var(--navy); }
+.calc input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 28px; height: 28px; margin-top: -10px;
+  border-radius: 50%; background: var(--amber); border: 3px solid var(--navy); box-shadow: 0 1px 3px rgba(15, 43, 76, .3);
 }
-input[type="text"] { font-family: var(--font-body); }
-input:focus-visible, button:focus-visible, summary:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.money { position: relative; }
-.money::before { content: "$"; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); font-family: var(--font-mono); }
-.money input { padding-left: 22px; }
-fieldset.seg { border: 0; margin: 0; padding: 0; display: grid; gap: 6px; min-width: 0; }
-.seg .opts { display: flex; flex-wrap: wrap; gap: 6px; }
-.seg label { position: relative; cursor: pointer; border: 1px solid var(--line); background: var(--paper); border-radius: 999px; padding: 6px 12px; font-size: 13.5px; }
-.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.seg label:has(input:checked) { background: var(--ink); color: var(--panel); border-color: var(--ink); }
-.seg label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
-.hint { font-size: 12.5px; color: var(--muted); }
+.calc input[type=range]::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--amber); border: 3px solid var(--navy); box-shadow: 0 1px 3px rgba(15, 43, 76, .3);
+}
+.calc input[type=range]:focus { outline: none; }
+.calc input[type=range]:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--amber); outline-offset: 3px; }
+.calc input[type=range]:focus-visible::-moz-range-thumb { outline: 3px solid var(--amber); outline-offset: 3px; }
 
-/* Results */
-.results { display: grid; gap: 16px; min-width: 0; }
-.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-.fact { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
-.fact .k { font-size: 12px; color: var(--muted); }
-.fact .v { font-family: var(--font-mono); font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
-.options { display: grid; gap: 12px; }
-.opt { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 10px; position: relative; }
-.opt.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-.opt-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; justify-content: space-between; }
-.opt-head h3 { display: flex; gap: 10px; align-items: baseline; }
-.rank { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
-.fit { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
-.meter { width: 120px; height: 8px; border-radius: 4px; background: var(--grid); overflow: hidden; }
-.meter i { display: block; height: 100%; background: var(--accent); }
-.best-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; background: var(--accent); color: var(--panel); border-radius: 4px; padding: 2px 6px; }
-.how { margin: 0; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font-size: 12.5px; border-radius: 6px; padding: 3px 8px; background: var(--navy-soft); color: var(--ink); font-variant-numeric: tabular-nums; }
-.chip.good { background: var(--good-soft); color: var(--good); }
-.chip.warn { background: var(--warn-soft); color: var(--warn); }
-.chip.bad { background: var(--bad-soft); color: var(--bad); }
-.watch { margin: 0; font-size: 14px; color: var(--muted); }
-.watch b { color: var(--ink); font-weight: 600; }
-.opt-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
-.net { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 14px; }
-.net b { font-size: 17px; font-weight: 500; }
-button { font: inherit; cursor: pointer; }
-.btn { border: 1px solid var(--ink); background: var(--ink); color: var(--panel); border-radius: 8px; padding: 7px 14px; font-weight: 600; font-size: 14px; }
-.btn.ghost { background: transparent; color: var(--ink); }
-.btn.small { padding: 5px 10px; font-size: 13px; }
-.ruled { font-size: 14px; color: var(--muted); }
-.ruled ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; }
-.ruled b { color: var(--ink); font-weight: 600; }
-.empty { padding: 24px; text-align: center; color: var(--muted); }
+.calc-adjust { border-top: 1px solid var(--rule); padding-top: 12px; }
+.calc-adjust summary { cursor: pointer; font-weight: 600; font-size: 15.5px; padding: 6px 0; list-style-position: inside; }
+.calc-adjust .calc-field:first-of-type { border-top: 0; }
+.calc-adjust .calc-field output { font-size: 28px; }
 
-/* Timeline */
-.tl-wrap { overflow-x: auto; }
-.tl-wrap svg { display: block; width: 100%; min-width: 640px; height: auto; }
-.tl-label { font-family: var(--font-body); font-size: 13px; font-weight: 600; fill: var(--ink); }
-.tl-tick { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); }
-.tl-grid { stroke: var(--grid); stroke-width: 1; }
-.tl-seg text { font-family: var(--font-body); font-size: 11.5px; fill: var(--ink); }
-.k-own { fill: var(--grid); }
-.k-prep { fill: var(--navy-soft); }
-.k-listed { fill: var(--accent-soft); }
-.k-build { fill: var(--navy-soft); }
-.k-newhome { fill: var(--good-soft); }
-.k-rentback { fill: var(--warn-soft); }
-.k-interim { fill: var(--bad-soft); }
-.k-one { fill: var(--grid); }
-.k-two { fill: var(--bad-soft); }
-.k-covered { fill: var(--good-soft); }
-.k-rented { fill: var(--good-soft); }
-.tl-move { fill: var(--accent); }
-.tl-move-text { font-family: var(--font-mono); font-size: 11px; fill: var(--accent); font-weight: 500; }
-.tl-today { stroke: var(--ink); stroke-dasharray: 3 3; }
-.tl-note { margin: 10px 0 0; font-size: 13.5px; color: var(--muted); }
+/* Equity strip */
+.calc-eq { border-radius: 8px; padding: clamp(18px, 2.4vw, 26px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.calc-eq p { margin: 0; }
+.calc-eq .k { font-size: 14.5px; color: var(--line); line-height: 1.35; }
+.calc-eq .v { font-family: var(--display); font-stretch: 75%; font-weight: 750; font-size: clamp(32px, 3.4vw, 42px); line-height: 1.05; margin-top: 6px; color: #fff; }
+.calc-eq .s { font-size: 13.5px; color: var(--line); margin-top: 4px; line-height: 1.4; }
 
-/* Plan */
-.plan { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px; }
-@media (max-width: 900px) { .plan { grid-template-columns: minmax(0, 1fr); } }
-.plan-col { display: grid; gap: 10px; align-content: start; min-width: 0; }
-.plan-col .head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
-textarea { width: 100%; min-height: 300px; font: inherit; font-size: 14.5px; line-height: 1.5; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 12px; resize: vertical; }
-.tasks { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-.tasks li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding: 9px 12px; border-top: 1px solid var(--line); font-size: 14px; }
-.tasks li:first-child { border-top: 0; }
-.tasks .d { font-family: var(--font-mono); color: var(--accent); font-variant-numeric: tabular-nums; }
-.copied { font-size: 13px; color: var(--good); }
+/* The three ways */
+.calc-ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.calc-way {
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 20px 20px 22px; display: flex; flex-direction: column;
+}
+.calc-num {
+  font: 500 13px/1 var(--mono); letter-spacing: .06em; color: var(--ink-2); margin: 0 0 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.calc-num b {
+  display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 4px;
+  background: var(--navy); color: #fff; font: 700 15px/1 var(--sans); letter-spacing: 0;
+}
+.calc-way h3 { font-size: 27px; margin-bottom: 8px; }
+.calc-how { font-size: 15.5px; color: var(--ink-2); line-height: 1.5; margin-bottom: 14px; min-height: 4.5em; }
+.calc-switch {
+  display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 15px; font-weight: 600; line-height: 1.35;
+  background: var(--vellum); border: 1px solid var(--rule); border-radius: 6px; padding: 10px 12px; margin: 0 0 14px;
+}
+.calc-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.calc-switch .track {
+  flex: none; width: 40px; height: 24px; border-radius: 12px; background: var(--rule); position: relative; transition: background .15s ease; margin-top: 1px;
+}
+.calc-switch .track::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 43, 76, .35); transition: transform .15s ease;
+}
+.calc-switch input:checked + .track { background: var(--navy); }
+.calc-switch input:checked + .track::after { transform: translateX(16px); }
+.calc-switch input:focus-visible + .track { outline: 3px solid var(--amber); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .calc-switch .track, .calc-switch .track::after { transition: none; } }
+.calc-rows { margin: 0 0 14px; border-top: 1px solid var(--rule); }
+.calc-rows div { padding: 9px 0; border-bottom: 1px solid var(--rule); }
+.calc-rows dt { font-size: 13.5px; color: var(--ink-2); line-height: 1.3; }
+.calc-rows dd { margin: 2px 0 0; font-weight: 600; font-size: 18px; line-height: 1.3; }
+.calc-rows dd small { display: block; font-weight: 400; font-size: 13.5px; color: var(--ink-2); margin-top: 2px; }
+.calc-fit { font-size: 15px; line-height: 1.5; margin-bottom: 10px; }
+.calc-watch {
+  font-size: 15px; line-height: 1.5; margin-bottom: 16px;
+  border-left: 3px solid var(--line); padding: 2px 0 2px 12px; color: var(--ink);
+}
+.calc-watch.warn { border-left-color: var(--amber); background: var(--amber-tint); padding: 8px 10px 8px 12px; border-radius: 0 4px 4px 0; }
+.calc-way .btn { margin-top: auto; align-self: flex-start; }
+.calc-note { margin-top: 18px; max-width: 70ch; }
 
-/* Assumptions */
-details.assumptions summary { cursor: pointer; font-family: var(--font-display); font-stretch: 82%; font-size: 20px; font-weight: 700; }
-.assume-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 16px; }
-.assume-grid .src { font-size: 12px; color: var(--muted); }
-.sources { margin-top: 16px; font-size: 13.5px; }
-.sources ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; }
-a { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 3px; }
-footer { font-size: 13px; color: var(--muted); max-width: 90ch; }
-@media (prefers-reduced-motion: no-preference) { .meter i { transition: width 0.3s ease; } }
+.calc-math { max-width: 72ch; }
+.calc-math ul { padding-left: 1.2em; margin: 0 0 1.2em; }
+.calc-math li { margin-bottom: .6em; line-height: 1.6; }
+
+@media (max-width: 1080px) {
+  .calc { grid-template-columns: 1fr; }
+  .calc-in { position: static; max-height: none; overflow: visible; }
+  .calc-in .calc-main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+}
+@media (max-width: 900px) {
+  .calc-ways { grid-template-columns: 1fr; }
+  .calc-how { min-height: 0; }
+}
+@media (max-width: 620px) {
+  .calc-in .calc-main { grid-template-columns: 1fr; }
+  .calc-jump { display: flex; width: 100%; margin-top: 14px; }
+  .calc-eq { grid-template-columns: 1fr; gap: 14px; }
+  .calc-eq .v { font-size: 34px; }
+}
 </style>
 </head>
 <body>
-
-<div class="wrap">
-  <header class="top">
-    <div>
-      <div class="eyebrow">Collins Ridge · Charles Carper</div>
-      <h1>Home-to-Sell Planner</h1>
-      <p class="lede">Every way to sell the current home and move into the new one, weighed side by side. Pick the plan, then send it and set the follow-ups.</p>
-    </div>
-    <div class="example-flag" id="exampleFlag">
-      <span id="exampleText">Example buyer loaded. Change anything to plan a real one.</span>
-      <button class="btn small ghost" id="clearBtn" type="button">Start a new buyer</button>
-    </div>
-  </header>
-
-  <div class="grid">
-    <form class="panel situation" id="form" autocomplete="off">
-      <h2>Their situation</h2>
-
-      <label class="field"><span>Buyer first name</span><input type="text" id="name" value="Pat"></label>
-
-      <div class="group-title">The new home</div>
-      <fieldset class="seg"><legend>Which home?</legend><div class="opts">
-        <label><input type="radio" name="homeType" value="mir"> Move-in ready</label>
-        <label><input type="radio" name="homeType" value="build" checked> To be built</label>
-      </div></fieldset>
-      <label class="field"><span>Months until the new home closes</span><input type="number" id="monthsToClose" min="0.5" max="18" step="0.5" value="7"><span class="hint">About 7 for a new build, 1 to 2 for move-in ready.</span></label>
-
-      <div class="group-title">The current home</div>
-      <div class="row2">
-        <label class="field"><span>Value estimate</span><div class="money"><input type="number" id="value" min="0" step="5000" value="425000"></div></label>
-        <label class="field"><span>Mortgage payoff</span><div class="money"><input type="number" id="payoff" min="0" step="5000" value="210000"></div></label>
-      </div>
-      <label class="field"><span>Current monthly payment</span><div class="money"><input type="number" id="payment" min="0" step="50" value="1900"></div></label>
-      <fieldset class="seg"><legend>Where is it now?</legend><div class="opts">
-        <label><input type="radio" name="homeStatus" value="notlisted" checked> Not listed</label>
-        <label><input type="radio" name="homeStatus" value="listed"> Listed</label>
-        <label><input type="radio" name="homeStatus" value="contract"> Under contract</label>
-      </div></fieldset>
-      <fieldset class="seg"><legend>Condition</legend><div class="opts">
-        <label><input type="radio" name="condition" value="ready" checked> Ready to list</label>
-        <label><input type="radio" name="condition" value="work"> Needs work first</label>
-      </div></fieldset>
-      <fieldset class="seg"><legend>Working with a listing agent?</legend><div class="opts">
-        <label><input type="radio" name="hasAgent" value="yes"> Yes</label>
-        <label><input type="radio" name="hasAgent" value="no" checked> No</label>
-      </div></fieldset>
-
-      <div class="group-title">Money and timing</div>
-      <fieldset class="seg"><legend>Lender says they can carry both payments?</legend><div class="opts">
-        <label><input type="radio" name="carryBoth" value="yes"> Yes</label>
-        <label><input type="radio" name="carryBoth" value="no"> No</label>
-        <label><input type="radio" name="carryBoth" value="unknown" checked> Not checked yet</label>
-      </div></fieldset>
-      <fieldset class="seg"><legend>Need the sale's equity for the new home?</legend><div class="opts">
-        <label><input type="radio" name="needEquity" value="yes" checked> Yes</label>
-        <label><input type="radio" name="needEquity" value="no"> No</label>
-      </div></fieldset>
-      <fieldset class="seg"><legend>Somewhere to stay between homes?</legend><div class="opts">
-        <label><input type="radio" name="stay" value="family" checked> Family or friends</label>
-        <label><input type="radio" name="stay" value="rent"> Would rent</label>
-        <label><input type="radio" name="stay" value="none"> No</label>
-      </div></fieldset>
-      <label class="field"><span>Short-term rent, if renting</span><div class="money"><input type="number" id="rent" min="0" step="50" value="2200"></div></label>
-      <fieldset class="seg"><legend>Open to renting out the current home?</legend><div class="opts">
-        <label><input type="radio" name="landlord" value="yes"> Yes</label>
-        <label><input type="radio" name="landlord" value="no" checked> No</label>
-      </div></fieldset>
-
-      <div class="group-title">What matters most</div>
-      <fieldset class="seg"><legend>Their top priority</legend><div class="opts">
-        <label><input type="radio" name="priority" value="once" checked> Move only once</label>
-        <label><input type="radio" name="priority" value="certain"> Certainty</label>
-        <label><input type="radio" name="priority" value="net"> Top dollar</label>
-        <label><input type="radio" name="priority" value="easy"> Least hassle</label>
-      </div></fieldset>
-    </form>
-
-    <section class="results" aria-live="polite">
-      <div class="facts" id="facts"></div>
-      <div class="options" id="options"></div>
-      <div class="panel ruled" id="ruled"></div>
-    </section>
-  </div>
-
-  <section class="panel">
-    <h2>The move, month by month: <span id="tlName"></span></h2>
-    <div class="tl-wrap" id="timeline"></div>
-    <p class="tl-note">Dates are estimates from today. The lender, the listing agent and the purchase agreement set the real ones.</p>
-  </section>
-
-  <section class="panel">
-    <div class="plan">
-      <div class="plan-col">
-        <div class="head"><h2>Text to the buyer (draft)</h2><span><span class="copied" id="copiedText" hidden>Copied</span> <button class="btn small" type="button" id="copyText">Copy text</button></span></div>
-        <textarea id="buyerText" aria-label="Draft text to the buyer"></textarea>
-        <span class="hint">Edit it here, read it over, then send it yourself.</span>
-      </div>
-      <div class="plan-col">
-        <div class="head"><h2>Follow-ups for CRM</h2><span><span class="copied" id="copiedTasks" hidden>Copied</span> <button class="btn small" type="button" id="copyTasks">Copy list</button></span></div>
-        <ul class="tasks" id="tasks"></ul>
-        <span class="hint">One check-in per milestone, so nothing slides.</span>
-      </div>
-    </div>
-  </section>
-
-  <details class="panel assumptions">
-    <summary>Assumptions and sources</summary>
-    <div class="assume-grid">
-      <label class="field"><span>Traditional selling costs, %</span><input type="number" id="tradPct" step="0.25" value="6"><span class="src">Commissions plus seller closing costs. Use the listing agent's real numbers.</span></label>
-      <label class="field"><span>Seller closing costs on cash sales, %</span><input type="number" id="closingPct" step="0.25" value="2"><span class="src">Opendoor puts closing costs at 1 to 3%.</span></label>
-      <label class="field"><span>Months to sell on the market</span><input type="number" id="monthsToSell" step="0.5" min="0.5" value="2"><span class="src">Listing to closing. Example; adjust to the local market.</span></label>
-      <label class="field"><span>Opendoor service charge, %</span><input type="number" id="odPct" step="0.25" value="5"><span class="src">Varies by home; shown in the offer. Opendoor uses 5% as its example.</span></label>
-      <label class="field"><span>Opendoor repair deduction</span><div class="money"><input type="number" id="odRepairs" step="500" value="5000"></div><span class="src">Example. Comes from their assessment.</span></label>
-      <label class="field"><span>Mark Spain listing commission, %</span><input type="number" id="msPct" step="0.25" value="3.5"><span class="src">About 3.5%, per a June 2026 review.</span></label>
-      <label class="field"><span>Buyer's agent commission, %</span><input type="number" id="buyerAgentPct" step="0.25" value="2.5"><span class="src">Used for Mark Spain, if the seller pays it. Negotiable; your traditional figure above already includes it.</span></label>
-      <label class="field"><span>Mark Spain cash offer, % of value</span><input type="number" id="msCashPct" step="1" value="75"><span class="src">Cash offers often run 60 to 80% of market value.</span></label>
-      <label class="field"><span>Knock program fee, %</span><input type="number" id="knockPct" step="0.25" value="2.25"><span class="src">Knock's contract fee: 2.25% of the old home's estimated list price, plus about $1,850 in loan closing costs (October 2026).</span></label>
-      <label class="field"><span>Cost of one move</span><div class="money"><input type="number" id="moveCost" step="250" value="2500"></div><span class="src">Example. Movers, truck, time off.</span></label>
-    </div>
-    <div class="sources">
-      <b>Sources, opened October 5, 2026 (Knock updated October 18, 2026)</b>
-      <ul>
-        <li><a href="https://www.opendoor.com/articles/how-selling-to-opendoor-compares-to-a-traditional-home-sale" target="_blank" rel="noopener">Selling to Opendoor vs. a traditional sale</a>, Opendoor: close in 21 to 60 days, closing costs 1 to 3%</li>
-        <li><a href="https://www.realestatewitch.com/opendoor-hidden-fees/" target="_blank" rel="noopener">Opendoor fees</a>, Real Estate Witch: 5% example fee, repairs extra</li>
-        <li><a href="https://sb-assets.knock.com/f/1005183/x/ab0c52b213/knock-bridge-loan-guide.pdf" target="_blank" rel="noopener">Knock Bridge Loan guide</a> and <a href="https://sb-assets.knock.com/f/1005183/x/2114bcf025/knock-bridge-loan-matrix-7-2026.pdf" target="_blank" rel="noopener">July 2026 matrix</a>, Knock: 2.25% contract fee plus about $1,850 in closing costs, 0% interest for 6 months, total debt on the old home up to 75% of its value, old home worth $150,000 or more, up to $35,000 for prep and $5,000 for moving, list within 45 days of the new closing, backup offer if unsold after 6 months</li>
-        <li><a href="https://markspain.com/blog/how-does-the-guaranteed-offer-program-work" target="_blank" rel="noopener">Guaranteed Offer program</a>, Mark Spain: serves Raleigh, offers in about 5 business days, close in as few as 21 days</li>
-        <li><a href="https://www.realestatewitch.com/mark-spain-real-estate/" target="_blank" rel="noopener">Mark Spain review</a>, Real Estate Witch: listing agreement required, about 3.5% commission, cash offers 60 to 80% of value</li>
+<a class="skip" href="#main">Skip to content</a>
+<aside class="disclose-bar" aria-label="Disclosure"><div class="wrap">Charles Carper · New homes in Hillsborough, NC · I represent the builder as the seller · My personal site</div></aside>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="wordmark" href="/" aria-label="Charles Carper, home">
+      <span class="wm-name">Charles Carper</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list">Menu</button>
+      <ul class="nav-list" id="nav-list">
+        <li><a href="/moving-plan">Moving plan</a></li><li><a href="/floor-plans">Floor plans</a></li><li><a href="/collins-ridge">Collins Ridge</a></li><li><a href="/guides/">Guides</a></li><li><a href="/about">About</a></li>
       </ul>
+      <a class="btn btn-amber btn-sm nav-book" href="/book"><span class="nb-short">Book</span><span class="nb-more">Get my short list</span></a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-head blueprint">
+  <div class="wrap">
+    <p class="crumb">Sell &amp; buy calculator · 4 sliders · no sign-up</p>
+    <h1>Sell one home. Buy the next. See the math first.</h1>
+    <p class="lead">Move four sliders. See how many times you'd move, how long you'd pay for two homes, and what you'd keep. No name or email needed.</p>
+    <div class="actions">
+      <a class="btn btn-amber" href="#calc">Run my numbers</a>
+      <a class="btn btn-line" href="#math">How the math works</a>
     </div>
-  </details>
+  </div>
+</section>
 
-  <footer>Planning estimates, not financial or legal advice. Program terms change, so confirm fees and eligibility with each provider, and the numbers with the lender and listing agent. D.R. Horton contingency terms follow the purchase agreement.</footer>
-</div>
+<section class="calc-sec">
+  <div class="wrap">
+    <noscript><p class="lead">This calculator needs JavaScript to run. Text me at <a href="sms:+19843282788">984-328-2788</a>, and I'll run your numbers myself.</p></noscript>
+    <div class="calc" id="calc">
+      <form class="calc-in" aria-labelledby="calc-in-h" onsubmit="return false">
+        <h2 id="calc-in-h">Your numbers</h2>
+        <p class="hint">Rough is fine. Nothing you enter leaves this page.</p>
+        <div class="calc-main">
+          <div class="calc-field">
+            <label for="cValue">What your home might sell for</label>
+            <output for="cValue" id="oValue">$400,000</output>
+            <input type="range" id="cValue" min="100000" max="1000000" step="5000" value="400000">
+          </div>
+          <div class="calc-field">
+            <label for="cOwed">What you still owe on it</label>
+            <output for="cOwed" id="oOwed">$200,000</output>
+            <input type="range" id="cOwed" min="0" max="400000" step="5000" value="200000">
+          </div>
+          <div class="calc-field">
+            <label for="cPay">Your monthly house payment</label>
+            <output for="cPay" id="oPay">$1,900</output>
+            <input type="range" id="cPay" min="0" max="5000" step="50" value="1900">
+            <span class="hint">Loan, taxes and insurance together.</span>
+          </div>
+          <div class="calc-field">
+            <label for="cMove">When you want to move in</label>
+            <output for="cMove" id="oMove">About 7 months</output>
+            <input type="range" id="cMove" min="1" max="12" step="1" value="7">
+            <span class="hint" id="moveHint">Not started yet. Building takes several months.</span>
+          </div>
+        </div>
+        <details class="calc-adjust">
+          <summary>Change my assumptions</summary>
+          <div class="calc-field">
+            <label for="cSell">Months to sell your home</label>
+            <output for="cSell" id="oSell">2 months</output>
+            <input type="range" id="cSell" min="1" max="6" step="0.5" value="2">
+            <span class="hint">From listing to closing.</span>
+          </div>
+          <div class="calc-field">
+            <label for="cCost">Selling costs</label>
+            <output for="cCost" id="oCost">6%</output>
+            <input type="range" id="cCost" min="3" max="10" step="0.5" value="6">
+            <span class="hint">Agent commissions and seller closing costs. Your listing agent has your real number.</span>
+          </div>
+          <div class="calc-field">
+            <label for="cFee">Buy-before-you-sell program fee</label>
+            <output for="cFee" id="oFee">2.25%</output>
+            <input type="range" id="cFee" min="1" max="4" step="0.25" value="2.25">
+            <span class="hint">Of your home's list price, plus about $1,850 in closing costs. Used only in way 2 with the program on.</span>
+          </div>
+        </details>
+        <a class="btn btn-ink btn-sm calc-jump" href="#ways">See my three ways</a>
+      </form>
 
+      <div class="calc-out">
+        <div class="calc-eq blueprint">
+          <div>
+            <p class="k">Your equity today</p>
+            <p class="v" id="rEquity">$200,000</p>
+            <p class="s">What it might sell for, minus what you owe.</p>
+          </div>
+          <div>
+            <p class="k">After selling costs</p>
+            <p class="v" id="rNet">$176,000</p>
+            <p class="s" id="rNetNote">What a sale could leave you, before anything else.</p>
+          </div>
+          <div>
+            <p class="k">You could tap before you sell</p>
+            <p class="v" id="rTap">$100,000</p>
+            <p class="s">Rough estimate with a buy-before-you-sell program.</p>
+          </div>
+        </div>
+
+        <div class="calc-ways" id="ways">
+          <article class="calc-way" aria-labelledby="w1h">
+            <p class="calc-num"><b>1</b> WAY ONE</p>
+            <h3 id="w1h">Sell first, then buy</h3>
+            <p class="calc-how">Sell and close on your home. Then buy with the cash in hand.</p>
+            <dl class="calc-rows">
+              <div><dt>Moves</dt><dd id="m1">1</dd></div>
+              <div><dt>Paying for two homes</dt><dd id="t1">None</dd></div>
+              <div><dt>Extra cost</dt><dd id="x1">$0</dd></div>
+              <div><dt>Cash left after the sale</dt><dd id="l1">$176,000</dd></div>
+            </dl>
+            <p class="calc-fit"><b>Good fit if</b> your down payment comes from the sale, or you want one payment at a time.</p>
+            <p class="calc-watch" id="w1"></p>
+            <a class="btn btn-ink btn-sm" data-way="1" href="sms:+19843282788">Text me about way 1</a>
+          </article>
+
+          <article class="calc-way" aria-labelledby="w2h">
+            <p class="calc-num"><b>2</b> WAY TWO</p>
+            <h3 id="w2h">Buy first, then sell</h3>
+            <p class="calc-how" id="how2">Close on your new home and move once. Then sell your old home empty.</p>
+            <label class="calc-switch"><input type="checkbox" id="cProg"><span class="track" aria-hidden="true"></span><span>Use a buy-before-you-sell program</span></label>
+            <dl class="calc-rows">
+              <div><dt>Moves</dt><dd id="m2">1</dd></div>
+              <div><dt>Paying for two homes</dt><dd id="t2">About 2.5 months</dd></div>
+              <div><dt>Extra cost</dt><dd id="x2">$4,800</dd></div>
+              <div><dt>Cash left after the sale</dt><dd id="l2">$171,000</dd></div>
+            </dl>
+            <p class="calc-fit" id="fit2"><b>Good fit if</b> you can carry both payments and want one move.</p>
+            <p class="calc-watch" id="w2"></p>
+            <a class="btn btn-ink btn-sm" data-way="2" href="sms:+19843282788">Text me about way 2</a>
+          </article>
+
+          <article class="calc-way" aria-labelledby="w3h">
+            <p class="calc-num"><b>3</b> WAY THREE</p>
+            <h3 id="w3h">Buy with a home-sale contingency</h3>
+            <p class="calc-how">Sign on your new home now. The purchase depends on your home selling.</p>
+            <dl class="calc-rows">
+              <div><dt>Moves</dt><dd id="m3">1</dd></div>
+              <div><dt>Paying for two homes</dt><dd id="t3">None</dd></div>
+              <div><dt>Extra cost</dt><dd id="x3">$0</dd></div>
+              <div><dt>Cash left after the sale</dt><dd id="l3">$176,000</dd></div>
+            </dl>
+            <p class="calc-fit"><b>Good fit if</b> your home will sell fast and you need the sale to buy.</p>
+            <p class="calc-watch" id="w3"></p>
+            <a class="btn btn-ink btn-sm" data-way="3" href="sms:+19843282788">Text me about way 3</a>
+          </article>
+        </div>
+        <p class="calc-note small quiet">Estimates for planning, not lending or financial advice. Your lender decides what you qualify for, and your listing agent has your real selling costs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section rule-top" id="math" style="padding-top:var(--section)">
+  <div class="wrap calc-math">
+    <h2>How the math works</h2>
+    <ul>
+      <li><b>Equity</b> is what your home might sell for, minus what you owe. <b>Cash left after the sale</b> takes out your selling costs and any extra cost that way carries.</li>
+      <li><b>Sell first</b> and <b>home-sale contingency</b> assume you list right away. List later and the gap between homes shrinks, but so does your cushion if the sale runs long.</li>
+      <li><b>Buy first</b> allows about two weeks to get your old home ready after you move, then your months to sell. Each month counts your full house payment, so it runs a little high. Part of every payment pays down your loan.</li>
+      <li><b>The buy-before-you-sell program</b> uses one national program's published terms from October 2026: a fee of 2.25% of your home's list price, about $1,850 in closing costs, no interest for the first 6 months, and total debt on your home of no more than 75% of its value. If the program pays your old payments while you wait, that money comes out of your sale. Programs change and differ, so get the real numbers in writing.</li>
+      <li><b>A home-sale contingency</b> comes with rules from the builder. Often the new home stays on the market while you sell. If another buyer makes an offer, you get a short window to drop the contingency, or the contract can end. Ask how it works on the home you like.</li>
+      <li><b>Your lender decides what you qualify for.</b> A lender counts your current house payment until your home is sold, or under contract with your buyer's loan approved. That's the question that decides between way 1 and way 2.</li>
+    </ul>
+    <p>Want the whole picture in words? Read <a class="textlink" href="/guides/buying-new-construction-with-a-home-to-sell">buying new construction when you have a home to sell</a>.</p>
+    <section class="sources" aria-labelledby="src-h" style="margin-top:28px"><h2 id="src-h" style="font-size:24px">Sources</h2><ol>
+      <li><a href="https://selling-guide.fanniemae.com/sel/b3-6-05/monthly-debt-obligations" target="_blank" rel="noopener">B3-6-05, Monthly Debt Obligations</a>, Fannie Mae Selling Guide</li>
+      <li>Buy-before-you-sell terms: one national program's published bridge loan guide and eligibility matrix, opened October 18, 2026</li>
+    </ol></section>
+  </div>
+</section>
+
+<section class="section rule-top" style="padding-top:var(--section)">
+  <div class="wrap split">
+    <div class="closer">
+      <h2>Want me to check your numbers?</h2>
+      <p class="lead quiet">Fifteen minutes. Tell me where you are, and I'll tell you which way I'd look at first. No pressure.</p>
+      <div class="actions">
+        <a class="btn btn-amber" href="/book#call">Get my answers in 15 minutes</a>
+        <a class="btn btn-ink" data-way="0" href="sms:+19843282788">Text me my numbers</a>
+      </div>
+    </div>
+    <div>
+      <h3>Rather answer a few questions?</h3>
+      <p class="measure">The moving plan asks five quick questions and gives you a path, a timeline and what to ask your lender.</p>
+      <p><a class="textlink" href="/moving-plan">Get my moving plan</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer blueprint">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="wordmark" href="/" aria-label="Charles Carper, home">
+          <span class="wm-name">Charles Carper</span>
+        </a>
+        <p class="small" style="margin-top:16px;max-width:34ch">New homes in Hillsborough, NC. Straight answers, and a plan for your move.</p>
+      </div>
+      <div>
+        <h2>Reach me</h2>
+        <ul>
+          <li><a href="tel:+19843282788">Call 984-328-2788</a></li>
+          <li><a href="sms:+19843282788">Text 984-328-2788</a></li>
+          <li><a href="/book">Book a time</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>On this site</h2>
+        <ul>
+          <li><a href="/moving-plan">Moving plan</a></li>
+          <li><a href="/floor-plans">Floor plans</a></li>
+          <li><a href="/collins-ridge">Collins Ridge</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/about">About Charles</a></li>
+          <li><a href="/realtors">For agents</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p>Charles Carper sells new homes in Hillsborough, NC, and represents the builder as the seller. This is my personal website, not a builder's website. I built it to keep my guides, notes and tools in one place for the people I work with. You're always welcome to bring your own agent.</p>
+      <p>Prices, plans, incentives and availability change often, so ask me before you decide anything. Nothing here is an offer or a guarantee. Equal Housing Opportunity.</p>
+      <p><a href="/privacy">Privacy</a></p>
+    </div>
+  </div>
+</footer>
 <script>
-(() => {
-  const $ = (s) => document.querySelector(s);
-  const num = (id) => { const v = parseFloat($('#' + id).value); return isFinite(v) ? v : 0; };
-  const radio = (name) => { const el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; };
-  const money = (n) => (n < 0 ? '-$' : '$') + Math.round(Math.abs(n)).toLocaleString('en-US');
-  const r1 = (n) => Math.round(n * 10) / 10;
-  const months = (n) => { const v = r1(n); return v + (v === 1 ? ' month' : ' months'); };
-  const today = new Date();
-  const dateAt = (m) => { const d = new Date(today); d.setDate(d.getDate() + Math.round(m * 30.4)); return d; };
-  const fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  let selectedId = null;
-  let isExample = true;
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var PROGRAM_CLOSING = 1850;   // example program's estimated loan closing costs
+  var PROGRAM_LTV = 0.75;       // example program: total debt on the home up to 75% of its value
+  var PREP = 0.5;               // months to get the old home ready after moving out (way 2)
 
-  function readState() {
-    return {
-      name: $('#name').value.trim(),
-      homeType: radio('homeType'),
-      T: Math.max(0.5, num('monthsToClose')),
-      value: num('value'), payoff: num('payoff'), payment: num('payment'),
-      homeStatus: radio('homeStatus'), condition: radio('condition'), hasAgent: radio('hasAgent'),
-      carryBoth: radio('carryBoth'), needEquity: radio('needEquity'), stay: radio('stay'),
-      rent: num('rent'), landlord: radio('landlord'), priority: radio('priority')
-    };
-  }
-  function readAssume() {
-    return {
-      tradPct: num('tradPct'), closingPct: num('closingPct'), S: Math.max(0.5, num('monthsToSell')),
-      odPct: num('odPct'), odRepairs: num('odRepairs'), msPct: num('msPct'), buyerAgentPct: num('buyerAgentPct'), msCashPct: num('msCashPct'),
-      knockPct: num('knockPct'), moveCost: num('moveCost')
-    };
-  }
+  var money = function (n) {
+    var r = Math.abs(n) >= 10000 ? Math.round(n / 1000) * 1000 : Math.round(n / 100) * 100;
+    return (r < 0 ? '-$' : '$') + Math.abs(r).toLocaleString('en-US');
+  };
+  var exact = function (n) { return '$' + Math.round(n).toLocaleString('en-US'); };
+  var months = function (n) { var r = Math.round(n * 2) / 2; return r + (r === 1 ? ' month' : ' months'); };
+  var setHTML = function (id, h) { var el = $(id); if (el.innerHTML !== h) el.innerHTML = h; };
+  var fill = function (el) {
+    var min = +el.min, max = +el.max, v = +el.value;
+    el.style.setProperty('--p', (max > min ? (v - min) / (max - min) * 100 : 0) + '%');
+  };
 
-  // Each option returns its fit, its money, and its schedule (months from today).
-  function buildOptions(s, a) {
-    const equity = s.value - s.payoff;
-    const eqPct = s.value > 0 ? equity / s.value : 0;
-    const L = s.homeStatus === 'listed' ? 0 : (s.condition === 'ready' ? 0.5 : 1.5);
-    const S = a.S;
-    const T = s.T;
-    const trad = s.value * (1 - a.tradPct / 100) - s.payoff;
-    const buildWord = s.homeType === 'build' ? 'Build' : 'Contract to close';
-    const opts = [];
+  var ids = ['cValue', 'cOwed', 'cPay', 'cMove', 'cSell', 'cCost', 'cFee'];
+  var state = {};
 
-    // A. Buy now, sell after
-    (() => {
-      const listAt = T + (s.condition === 'ready' ? 0.25 : 1);
-      const soldAt = listAt + S;
-      const overlap = soldAt - T;
-      let ok = true, cond = false, reason = '';
-      if (s.carryBoth === 'no') { ok = false; reason = 'the lender says they can’t carry both payments'; }
-      else if (s.needEquity === 'yes') { ok = false; reason = 'they need the sale’s equity for the new home'; }
-      else if (s.carryBoth === 'unknown') { cond = true; }
-      opts.push({
-        id: 'buyfirst', name: 'Buy first, sell after', ok, cond, reason,
-        how: 'Close on the new home, move once, then list the empty old home. The lender confirms they qualify with both payments.',
-        moves: 1, overlap, gap: 0, certainty: 'High', ease: 2, keepsAgent: 'Yes',
-        net: trad - s.payment * overlap - a.moveCost,
-        watch: '<b>Two payments for about ' + months(overlap) + '</b> while the old home sells.',
-        rows: {
-          old: [[0, T, 'Living here', 'own'], [T, listAt, 'Prep', 'prep'], [listAt, soldAt, 'On the market', 'listed']],
-          nw: [[0, T, buildWord, 'build'], [T, soldAt + 1, 'Theirs', 'newhome']],
-          live: [[0, T, 'Current home', 'own'], [T, soldAt + 1, 'New home', 'newhome']],
-          pay: [[0, T, 'One', 'one'], [T, soldAt, 'Two payments', 'two'], [soldAt, soldAt + 1, 'One', 'one']]
-        },
-        moveAt: [T],
-        steps: [[0.1, 'Lender confirms they qualify with both payments'], [0.25, 'Sign on the new home'], [Math.max(0.5, T - 1), 'Interview listing agents'], [T, 'Close on the new home and move in'], [listAt, 'List the old home'], [soldAt, 'Old home closes']]
-      });
-    })();
-
-    // B. Home-to-sell contingency with D.R. Horton
-    (() => {
-      let listAt, soldAt, newAt;
-      if (s.homeType === 'build') { listAt = Math.max(L, T - S - 0.5); soldAt = listAt + S; newAt = Math.max(T, soldAt); }
-      else { listAt = L; soldAt = listAt + S; newAt = Math.max(T, soldAt); }
-      const rb = Math.max(0, newAt - soldAt);
-      const ok = s.homeStatus !== 'contract';
-      const contractAt = Math.max(listAt + 0.25, soldAt - 1);
-      opts.push({
-        id: 'tosell', name: 'Home-to-sell contingency', ok, cond: false,
-        reason: 'they’re already under contract, so the home-to-close contingency fits instead',
-        how: 'Sign on the new home with a home-to-sell contingency, then list. Once they have a buyer, switch to a home-to-close contingency.',
-        moves: 1, overlap: 0, gap: rb, certainty: 'Medium', ease: 2, keepsAgent: 'Yes',
-        net: trad - a.moveCost,
-        watch: s.homeType === 'mir'
-          ? '<b>The sale has to land fast.</b> On a move-in ready home, the new closing waits on the sale, and the home can sell to someone else first.'
-          : '<b>The sale has to keep pace with the build.</b> Check the contingency terms and deadlines in the purchase agreement.',
-        rows: {
-          old: [[0, listAt, 'Living here', 'own'], [listAt, contractAt, 'On the market', 'listed'], [contractAt, soldAt, 'Under contract', 'prep']].concat(rb > 0 ? [[soldAt, newAt, 'Rent-back', 'rentback']] : []),
-          nw: [[0, newAt, s.homeType === 'build' ? 'Build' : 'Waiting on the sale', 'build'], [newAt, newAt + 1, 'Theirs', 'newhome']],
-          live: [[0, newAt, 'Current home', 'own'], [newAt, newAt + 1, 'New home', 'newhome']],
-          pay: [[0, newAt + 1, 'One payment', 'one']]
-        },
-        moveAt: [newAt],
-        steps: [[0.1, 'Lender pre-approval with the contingency'], [0.25, 'Sign on the new home with a home-to-sell contingency'], [Math.max(0.2, listAt - 0.5), 'Pick a listing agent and prep the home'], [listAt, 'List the home'], [contractAt, 'Under contract: switch to the home-to-close contingency'], [soldAt, 'Old home closes'], [newAt, 'Close on the new home and move in']]
-      });
-    })();
-
-    // C. Home-to-close contingency
-    (() => {
-      const soldAt = 1;
-      const newAt = s.homeType === 'mir' ? Math.max(T, soldAt) : T;
-      const gap = Math.max(0, newAt - soldAt);
-      const longGap = gap > 2;
-      const ok = s.homeStatus === 'contract';
-      const rentCost = longGap && s.stay === 'rent' ? s.rent * gap : 0;
-      opts.push({
-        id: 'toclose', name: 'Home-to-close contingency', ok, cond: false,
-        reason: 'it starts once their home is under contract',
-        how: 'Their buyer is already lined up, so the new home only waits on that closing. It’s the lowest-risk contingency for everyone.',
-        moves: longGap ? 2 : 1, overlap: 0, gap, certainty: 'High', ease: 3, keepsAgent: 'Yes',
-        net: trad - a.moveCost * (longGap ? 2 : 1) - rentCost,
-        watch: longGap
-          ? '<b>The build outlasts the sale by ' + months(gap) + '.</b> A move-in ready home fits better, or they need a place to stay.'
-          : '<b>Watch the old home’s closing.</b> If it slips, the new closing slips with it.',
-        rows: {
-          old: [[0, soldAt, 'Under contract', 'prep']].concat(gap > 0 ? [[soldAt, Math.min(newAt, soldAt + 2), 'Rent-back', 'rentback']] : []),
-          nw: [[0, newAt, s.homeType === 'build' ? 'Build' : 'Contract to close', 'build'], [newAt, newAt + 1, 'Theirs', 'newhome']],
-          live: longGap ? [[0, soldAt, 'Current home', 'own'], [soldAt, newAt, 'In between', 'interim'], [newAt, newAt + 1, 'New home', 'newhome']] : [[0, newAt, 'Current home', 'own'], [newAt, newAt + 1, 'New home', 'newhome']],
-          pay: [[0, newAt + 1, 'One payment', 'one']]
-        },
-        moveAt: longGap ? [soldAt, newAt] : [newAt],
-        steps: [[0.1, 'Send the signed sale contract to the lender'], [0.2, 'Sign on the new home with a home-to-close contingency'], [soldAt, 'Old home closes'], [newAt, 'Close on the new home and move in']]
-      });
-    })();
-
-    // D. Sell first, rent back
-    (() => {
-      let listAt, soldAt, newAt;
-      if (s.homeType === 'build') { listAt = Math.max(L, T - S - 1.5); soldAt = listAt + S; newAt = Math.max(T, soldAt); }
-      else { listAt = L; soldAt = listAt + S; newAt = Math.max(T, soldAt + 0.25); }
-      const rb = Math.max(0, newAt - soldAt);
-      const ok = rb <= 2.01 && s.homeStatus !== 'contract';
-      opts.push({
-        id: 'rentback', name: 'Sell first, rent it back', ok, cond: false,
-        reason: s.homeStatus === 'contract' ? 'their sale is already set' : 'the gap would run past what a rent-back usually allows',
-        how: 'Time the sale to close a few weeks before the new home, then stay on as a renter in the old house. One move, and the cash is in hand before closing.',
-        moves: 1, overlap: 0, gap: rb, certainty: 'Medium', ease: 2, keepsAgent: 'Yes',
-        net: trad - s.payment * rb - a.moveCost,
-        watch: '<b>Rent-backs usually run 60 days or less,</b> since the buyer’s loan expects them to move in. If their sale falls through after they sign, the new contract still stands.',
-        rows: {
-          old: [[0, listAt, 'Living here', 'own'], [listAt, soldAt, 'On the market', 'listed'], [soldAt, newAt, 'Rent-back', 'rentback']],
-          nw: [[0, newAt, s.homeType === 'build' ? 'Build' : 'Contract to close', 'build'], [newAt, newAt + 1, 'Theirs', 'newhome']],
-          live: [[0, newAt, 'Current home', 'own'], [newAt, newAt + 1, 'New home', 'newhome']],
-          pay: [[0, soldAt, 'One payment', 'one'], [soldAt, newAt, 'Rent', 'rentback'], [newAt, newAt + 1, 'One payment', 'one']]
-        },
-        moveAt: [newAt],
-        steps: [[0.1, 'Lender pre-approval'], [0.25, s.homeType === 'build' ? 'Sign on the new home' : 'Pick the new home'], [Math.max(0.2, listAt - 0.5), 'Pick a listing agent; ask for a rent-back in the offer'], [listAt, 'List the home'], [soldAt, 'Old home closes; the rent-back starts'], [newAt, 'Close on the new home and move in']]
-      });
-    })();
-
-    // E. Sell first, stay in between
-    (() => {
-      const listAt = L;
-      const soldAt = listAt + S;
-      const newAt = s.homeType === 'mir' ? Math.max(T, soldAt + 0.5) : Math.max(T, soldAt);
-      const gap = Math.max(0, newAt - soldAt);
-      const twice = gap > 0.25;
-      const ok = s.stay !== 'none';
-      const rentCost = s.stay === 'rent' ? s.rent * gap : 0;
-      opts.push({
-        id: 'between', name: 'Sell first, stay in between', ok, cond: false,
-        reason: 'they don’t have a place to stay between homes',
-        how: 'Sell first, then stay with family or rent short-term until the new home closes. The purchase never depends on a sale.',
-        moves: twice ? 2 : 1, overlap: 0, gap, certainty: 'High', ease: 2, keepsAgent: 'Yes',
-        net: trad - rentCost - a.moveCost * (twice ? 2 : 1),
-        watch: twice
-          ? '<b>Two moves and about ' + months(gap) + ' in between</b>' + (s.stay === 'rent' ? ', about ' + money(rentCost) + ' in rent.' : ' with family.')
-          : '<b>Tight timing.</b> The new home has to be ready right as the old one closes.',
-        rows: {
-          old: [[0, listAt, 'Living here', 'own'], [listAt, soldAt, 'On the market', 'listed']],
-          nw: [[0, newAt, s.homeType === 'build' ? 'Build' : 'Contract to close', 'build'], [newAt, newAt + 1, 'Theirs', 'newhome']],
-          live: [[0, soldAt, 'Current home', 'own'], [soldAt, newAt, s.stay === 'rent' ? 'Short-term rental' : 'Family or friends', 'interim'], [newAt, newAt + 1, 'New home', 'newhome']],
-          pay: [[0, soldAt, 'One payment', 'one'], [soldAt, newAt, s.stay === 'rent' ? 'Rent' : 'None', s.stay === 'rent' ? 'rentback' : 'one'], [newAt, newAt + 1, 'One payment', 'one']]
-        },
-        moveAt: twice ? [soldAt, newAt] : [newAt],
-        steps: [[0.1, 'Lender pre-approval'], [Math.max(0.2, listAt - 0.5), 'Pick a listing agent and prep the home'], [listAt, 'List the home'], [soldAt, 'Old home closes; move to the in-between place'], [Math.min(0.5, soldAt), 'Sign on the new home'], [newAt, 'Close on the new home and move in']]
-      });
-    })();
-
-    // F. Knock
-    (() => {
-      const listAt = T + 0.5;
-      const soldAt = listAt + S;
-      const overlap = soldAt - T;
-      const covered = Math.min(6, overlap);
-      const own = Math.max(0, overlap - 6);
-      const room = s.value * 0.75 - s.payoff;
-      const ok = s.value >= 150000 && room >= 25000;
-      opts.push({
-        id: 'knock', name: 'Knock: buy before you sell', ok, cond: ok,
-        reason: s.value < 150000 ? 'Knock needs the old home to be worth at least $150,000' : 'Knock caps total debt on the old home at 75% of its value, and they owe ' + Math.round((1 - eqPct) * 100) + '%, which leaves too little to borrow',
-        how: 'Knock’s bridge loan unlocks their equity so they buy with no contingency and move once. The bridge can pay the current mortgage, interest-free for 6 months, while the empty home sells with their own agent.',
-        moves: 1, overlap: own, gap: 0, certainty: 'High', ease: 3, keepsAgent: 'Yes',
-        net: s.value * (1 - a.tradPct / 100 - a.knockPct / 100) - s.payoff - 1850 - a.moveCost - s.payment * overlap,
-        watch: '<b>There’s a program fee:</b> ' + a.knockPct + '% of the list price plus about $1,850. Old payments made by the bridge come out of the sale. If it hasn’t sold in 6 months, Knock buys it at a price set up front. Confirm it works with their lender and a builder purchase.',
-        rows: {
-          old: [[0, T, 'Living here', 'own'], [T, listAt, 'Prep', 'prep'], [listAt, soldAt, 'On the market', 'listed']],
-          nw: [[0, T, s.homeType === 'build' ? 'Build' : 'Contract to close', 'build'], [T, soldAt + 1, 'Theirs', 'newhome']],
-          live: [[0, T, 'Current home', 'own'], [T, soldAt + 1, 'New home', 'newhome']],
-          pay: [[0, T, 'One', 'one'], [T, T + covered, 'Old payment from the bridge', 'covered']].concat(own > 0 ? [[T + 6, soldAt, 'Two payments', 'two']] : []).concat([[soldAt, soldAt + 1, 'One', 'one']])
-        },
-        moveAt: [T],
-        steps: [[0.1, 'Apply with Knock and get the fee quote'], [0.4, 'Knock approval and new home pre-approval'], [0.5, 'Sign on the new home, no contingency'], [T, 'Close on the new home and move in'], [listAt, 'List the old home with their agent'], [Math.min(soldAt, T + 6), 'Old home sells (the bridge carries the payment, 0% for 6 months)']]
-      });
-    })();
-
-    // G. Opendoor
-    (() => {
-      const soldAt = Math.max(0.75, T);
-      const decideAt = Math.max(0.2, soldAt - 2);
-      opts.push({
-        id: 'opendoor', name: 'Sell to Opendoor', ok: true, cond: true,
-        reason: '',
-        how: 'Sell for cash and pick a closing date 21 to 60 days out, timed to the new home’s closing. One move, no showings.',
-        moves: 1, overlap: 0, gap: 0, certainty: 'High', ease: 3, keepsAgent: 'Optional',
-        net: s.value * (1 - a.odPct / 100 - a.closingPct / 100) - a.odRepairs - s.payoff - a.moveCost,
-        watch: '<b>They trade price for certainty:</b> a service charge, plus repair costs taken from the proceeds. Check that the home qualifies.',
-        rows: {
-          old: [[0, decideAt, 'Living here', 'own'], [decideAt, soldAt, 'Sold, closing set', 'prep']],
-          nw: [[0, T, s.homeType === 'build' ? 'Build' : 'Contract to close', 'build'], [T, T + 1, 'Theirs', 'newhome']],
-          live: [[0, T, 'Current home', 'own'], [T, T + 1, 'New home', 'newhome']],
-          pay: [[0, T + 1, 'One payment', 'one']]
-        },
-        moveAt: [T],
-        steps: [[0.1, 'Request an Opendoor offer to see the number'], [0.25, 'Sign on the new home'], [decideAt, 'Accept the offer; set the closing date'], [T, 'Both closings, one move']]
-      });
-    })();
-
-    // H. Mark Spain
-    (() => {
-      const listAt = s.homeType === 'build' ? Math.max(L, T - S - 0.5) : L;
-      const soldAt = listAt + S;
-      const newAt = Math.max(T, soldAt);
-      const floor = s.value * (a.msCashPct / 100) * (1 - a.closingPct / 100) - s.payoff - a.moveCost;
-      opts.push({
-        id: 'markspain', name: 'Mark Spain guaranteed offer', ok: true, cond: s.hasAgent === 'yes',
-        reason: '',
-        how: 'List with Mark Spain. They see cash offers within about a week, and can still sell on the open market for more.',
-        moves: 1, overlap: 0, gap: 0, certainty: 'High', ease: 2, keepsAgent: 'No',
-        net: s.value * (1 - a.msPct / 100 - a.buyerAgentPct / 100 - a.closingPct / 100) - s.payoff - a.moveCost,
-        floor,
-        watch: '<b>Cash offers often land at 60 to 80% of market value,</b> and the listing commission runs about ' + a.msPct + '%.' + (s.hasAgent === 'yes' ? ' It means leaving their current agent.' : ''),
-        rows: {
-          old: [[0, listAt, 'Living here', 'own'], [listAt, soldAt, 'Listed, cash floor', 'listed']],
-          nw: [[0, newAt, s.homeType === 'build' ? 'Build' : 'Contract to close', 'build'], [newAt, newAt + 1, 'Theirs', 'newhome']],
-          live: [[0, newAt, 'Current home', 'own'], [newAt, newAt + 1, 'New home', 'newhome']],
-          pay: [[0, newAt + 1, 'One payment', 'one']]
-        },
-        moveAt: [newAt],
-        steps: [[0.1, 'Mark Spain consultation and listing agreement'], [Math.max(0.2, listAt), 'See the cash offers; list on the market'], [0.25, 'Sign on the new home'], [soldAt, 'Old home closes'], [newAt, 'Close on the new home and move in']]
-      });
-    })();
-
-    // I. Rent it out
-    (() => {
-      const ok = s.landlord === 'yes' && s.needEquity === 'no';
-      const rentedAt = T + 1;
-      opts.push({
-        id: 'landlord', name: 'Keep it and rent it out', ok, cond: true,
-        reason: s.landlord !== 'yes' ? 'they aren’t open to being landlords' : 'they need the equity for the new home',
-        how: 'Keep the old home as a rental. The lender may count the lease income toward qualifying for the new loan.',
-        moves: 1, overlap: 1, gap: 0, certainty: 'Medium', ease: 1, keepsAgent: 'n/a',
-        net: null, keeps: equity,
-        watch: '<b>They become landlords,</b> and the lender has to approve the rental income. Expect a month or so of two payments before a tenant moves in.',
-        rows: {
-          old: [[0, T, 'Living here', 'own'], [T, rentedAt, 'Find a tenant', 'prep'], [rentedAt, rentedAt + 1, 'Rented', 'rented']],
-          nw: [[0, T, s.homeType === 'build' ? 'Build' : 'Contract to close', 'build'], [T, rentedAt + 1, 'Theirs', 'newhome']],
-          live: [[0, T, 'Current home', 'own'], [T, rentedAt + 1, 'New home', 'newhome']],
-          pay: [[0, T, 'One', 'one'], [T, rentedAt, 'Two', 'two'], [rentedAt, rentedAt + 1, 'Rent covers it', 'covered']]
-        },
-        moveAt: [T],
-        steps: [[0.1, 'Lender checks qualifying with the rental income'], [0.25, 'Sign on the new home'], [Math.max(0.5, T - 1), 'Line up a property manager or tenant'], [T, 'Close on the new home and move in'], [rentedAt, 'Tenant moves in']]
-      });
-    })();
-
-    return { opts, equity, eqPct };
-  }
-
-  function score(opts, s) {
-    const live = opts.filter((o) => o.ok);
-    const nets = live.filter((o) => o.net !== null).map((o) => o.net);
-    const lo = Math.min.apply(null, nets), hi = Math.max.apply(null, nets);
-    const w = { net: 1, certain: 1, once: 1, easy: 1 };
-    w[s.priority] = 3;
-    const certVal = { High: 1, Medium: 0.6, Low: 0.3 };
-    live.forEach((o) => {
-      const netN = o.net === null ? 0.7 : (hi > lo ? (o.net - lo) / (hi - lo) : 1);
-      const onceN = o.moves === 1 ? (o.gap > 0.25 ? 0.85 : 1) : 0;
-      let sc = (w.net * netN + w.certain * certVal[o.certainty] + w.once * onceN + w.easy * (o.ease / 3)) / (w.net + w.certain + w.once + w.easy);
-      if (o.cond) sc -= 0.04;
-      if (o.id === 'toclose') sc += 0.15;
-      o.score = Math.max(0, Math.min(1, sc));
-    });
-    live.sort((x, y) => y.score - x.score);
-    return live;
-  }
-
-  function chip(text, kind) { return '<span class="chip' + (kind ? ' ' + kind : '') + '">' + text + '</span>'; }
-
-  function renderOption(o, i) {
-    const pct = Math.round(o.score * 100);
-    const label = pct >= 75 ? 'Strong fit' : pct >= 55 ? 'Good fit' : 'Possible';
-    const chips = [
-      chip(o.moves === 1 ? 'Moves once' : 'Moves twice', o.moves === 1 ? 'good' : 'bad'),
-      chip(o.overlap > 0.05 ? 'Two payments: ' + months(o.overlap) : 'No double payments', o.overlap > 0.05 ? 'warn' : 'good'),
-      chip(o.gap > 0.05 ? (o.moves === 2 ? 'In between: ' : 'Rent-back: ') + months(o.gap) : 'No gap', o.gap > 0.05 ? 'warn' : 'good'),
-      chip('Certainty: ' + o.certainty, o.certainty === 'High' ? 'good' : o.certainty === 'Medium' ? 'warn' : 'bad'),
-      chip('Keeps their agent: ' + o.keepsAgent)
-    ];
-    if (o.cond) chips.push(chip('Needs a provider or lender OK', 'warn'));
-    const netHtml = o.net === null
-      ? 'Keeps <b>' + money(o.keeps) + '</b> of equity in the home'
-      : 'Est. net from the sale <b>' + money(o.net) + '</b>' + (o.floor !== undefined ? ' <span class="hint">· cash floor about ' + money(o.floor) + '</span>' : '');
-    return '<article class="opt' + (o.id === selectedId ? ' selected' : '') + '" data-id="' + o.id + '">' +
-      '<div class="opt-head"><h3><span class="rank">' + String(i + 1).padStart(2, '0') + '</span>' + o.name + '</h3>' +
-      '<div class="fit">' + (i === 0 ? '<span class="best-tag">Best fit</span>' : '') + '<span>' + label + '</span><span class="meter" aria-hidden="true"><i style="width:' + pct + '%"></i></span></div></div>' +
-      '<p class="how">' + o.how + '</p>' +
-      '<div class="chips">' + chips.join('') + '</div>' +
-      '<p class="watch">' + o.watch + '</p>' +
-      '<div class="opt-foot"><span class="net">' + netHtml + '</span>' +
-      '<button class="btn small' + (o.id === selectedId ? '' : ' ghost') + '" type="button" data-pick="' + o.id + '">' + (o.id === selectedId ? 'Planning this one' : 'Plan this one') + '</button></div>' +
-      '</article>';
-  }
-
-  function renderTimeline(o) {
-    const ends = [];
-    Object.values(o.rows).forEach((row) => row.forEach((seg) => ends.push(seg[1])));
-    const M = Math.max(6, Math.ceil(Math.max.apply(null, ends)));
-    const W = 800, x0 = 150, x1 = 780, rowH = 34, top = 44;
-    const X = (m) => x0 + (m / M) * (x1 - x0);
-    const rows = [['Current home', o.rows.old], ['New home', o.rows.nw], ['Where they live', o.rows.live], ['Payments', o.rows.pay]];
-    const H = top + rows.length * (rowH + 12) + 16;
-    let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Month-by-month timeline for ' + o.name + '">';
-    for (let m = 0; m <= M; m++) {
-      const d = dateAt(m);
-      svg += '<line class="tl-grid" x1="' + X(m) + '" x2="' + X(m) + '" y1="' + (top - 10) + '" y2="' + (H - 12) + '"/>';
-      if (m < M) svg += '<text class="tl-tick" x="' + (X(m) + 4) + '" y="' + (top - 16) + '">' + d.toLocaleDateString('en-US', { month: 'short' }) + '</text>';
-    }
-    rows.forEach((r, i) => {
-      const y = top + i * (rowH + 12);
-      svg += '<text class="tl-label" x="0" y="' + (y + rowH / 2 + 5) + '">' + r[0] + '</text>';
-      r[1].forEach((seg) => {
-        const a = Math.max(0, seg[0]), b = Math.min(M, seg[1]);
-        if (b - a <= 0.01) return;
-        const w = X(b) - X(a);
-        svg += '<g class="tl-seg"><rect class="k-' + seg[3] + '" x="' + (X(a) + 1) + '" y="' + y + '" width="' + Math.max(1, w - 2) + '" height="' + rowH + '" rx="6"/>';
-        if (w > 74) svg += '<text x="' + (X(a) + 9) + '" y="' + (y + rowH / 2 + 4) + '">' + seg[2] + '</text>';
-        svg += '</g>';
-      });
-    });
-    const liveY = top + 2 * (rowH + 12);
-    o.moveAt.forEach((m) => {
-      const x = X(Math.min(M, m));
-      svg += '<path class="tl-move" d="M' + (x - 6) + ' ' + (liveY - 4) + 'L' + (x + 6) + ' ' + (liveY - 4) + 'L' + x + ' ' + (liveY + 5) + 'z"/>';
-      svg += '<text class="tl-move-text" x="' + (x + 8) + '" y="' + (liveY - 4) + '">Move</text>';
-    });
-    svg += '<line class="tl-today" x1="' + X(0) + '" x2="' + X(0) + '" y1="' + (top - 10) + '" y2="' + (H - 12) + '"/>';
-    svg += '</svg>';
-    $('#timeline').innerHTML = svg;
-    $('#tlName').textContent = o.name;
-  }
-
-  function renderPlan(o, s) {
-    const who = s.name || 'there';
-    const steps = o.steps.slice().sort((p, q) => p[0] - q[0]);
-    const lines = steps.map((st, i) => (i + 1) + '. ' + fmtDate(dateAt(st[0])) + ': ' + st[1]);
-    const firstCheck = new Date(today); firstCheck.setDate(firstCheck.getDate() + 2);
-    const moveLine = o.moves === 1 ? 'You’d move once' : 'You’d move twice';
-    const gapLine = o.gap > 0.05 ? (o.moves === 2 ? ', with about ' + months(o.gap) + ' in between' : ', with a short rent-back of about ' + months(o.gap)) : '';
-    const text = 'Hi ' + who + ', it’s Charles. Here’s the plan we mapped out for selling your home and moving into the new one.\n\n' +
-      'The plan: ' + o.name + '\n' + lines.join('\n') + '\n\n' +
-      moveLine + gapLine + '. These dates are estimates. Your lender and listing agent will firm them up.\n\n' +
-      'I’ll check in on ' + fmtDate(firstCheck) + '. Questions before then? Text me at 984-328-2788.';
-    $('#buyerText').value = text;
-    const tasks = [[firstCheck, 'Confirm ' + (s.name || 'the buyer') + ' got the plan and booked the lender call']]
-      .concat(steps.map((st) => { const d = dateAt(st[0]); d.setDate(d.getDate() + 1); return [d, 'Check in with ' + (s.name || 'the buyer') + ': ' + st[1]]; }));
-    $('#tasks').innerHTML = tasks.map((t) => '<li><span class="d">' + fmtDate(t[0]) + '</span><span>' + t[1] + '</span></li>').join('');
-    $('#tasks').dataset.copy = tasks.map((t) => fmtDate(t[0]) + ' — ' + t[1]).join('\n');
+  function moveText(t) {
+    if (t <= 2) return 'A finished home. Close in a month or two.';
+    if (t <= 5) return 'A home that’s already going up.';
+    return 'Not started yet. Building takes several months.';
   }
 
   function render() {
-    const s = readState(), a = readAssume();
-    const factsEl = $('#facts');
-    if (s.value <= 0) {
-      factsEl.innerHTML = '';
-      $('#options').innerHTML = '<div class="panel empty">Enter the home’s value estimate and payoff to see their options.</div>';
-      $('#ruled').hidden = true;
-      $('#timeline').innerHTML = ''; $('#tlName').textContent = '';
-      $('#buyerText').value = ''; $('#tasks').innerHTML = ''; $('#tasks').dataset.copy = '';
-      return;
+    var owed = $('cOwed');
+    var V = +$('cValue').value;
+    if (+owed.max !== V) owed.max = V;
+    if (+owed.value > V) owed.value = V;
+    var P = +owed.value, M = +$('cPay').value, T = +$('cMove').value;
+    var S = +$('cSell').value, C = +$('cCost').value, F = +$('cFee').value;
+    var prog = $('cProg').checked;
+    state = { V: V, P: P, T: T, prog: prog };
+
+    ids.forEach(function (id) { fill($(id)); });
+    $('oValue').textContent = exact(V);
+    $('oOwed').textContent = exact(P);
+    $('oPay').textContent = exact(M);
+    $('oMove').textContent = 'About ' + months(T);
+    $('moveHint').textContent = moveText(T);
+    $('oSell').textContent = months(S);
+    $('oCost').textContent = C + '%';
+    $('oFee').textContent = F + '%';
+    $('cValue').setAttribute('aria-valuetext', exact(V));
+    owed.setAttribute('aria-valuetext', exact(P));
+    $('cPay').setAttribute('aria-valuetext', exact(M) + ' a month');
+    $('cMove').setAttribute('aria-valuetext', 'About ' + months(T));
+    $('cSell').setAttribute('aria-valuetext', months(S));
+    $('cCost').setAttribute('aria-valuetext', C + ' percent');
+    $('cFee').setAttribute('aria-valuetext', F + ' percent');
+
+    var equity = V - P;
+    var Y = V * (1 - C / 100) - P;           // cash a sale leaves after selling costs
+    var room = Math.max(0, V * PROGRAM_LTV - P);
+    $('rEquity').textContent = money(equity);
+    $('rNet').textContent = money(Y);
+    $('rNetNote').textContent = Y < 0 ? 'You’d bring about ' + money(-Y) + ' to closing.' : 'What a sale could leave you, before anything else.';
+    $('rTap').textContent = money(room);
+
+    // Way 1: sell first. List now, sold in S months, new home ready in T.
+    var gap = T - S, w1, x1, m1, l1 = money(Y);
+    if (gap > 1) {
+      m1 = '2'; x1 = 'Rent for about ' + months(gap) + '<small>Or stay with family</small>'; l1 = money(Y) + '<small>Before rent</small>';
+      w1 = 'If you list now, you’d be between homes for about ' + months(gap) + '. Pick a home that’s ready sooner, or list later in the build to shrink the gap.';
+    } else if (gap > 0) {
+      m1 = '1'; x1 = 'A few weeks of rent-back<small>You rent your old home back from your buyer</small>';
+      w1 = 'Ask your buyer for a rent-back. It lets you stay a few weeks after your sale closes.';
+    } else {
+      m1 = '1'; x1 = '$0';
+      w1 = 'Your home needs about ' + months(S) + ' to sell, so the new home could be ready first. With this way you buy after you sell, so pick a home that’s ready a little later.';
     }
-    const built = buildOptions(s, a);
-    const ranked = score(built.opts, s);
-    const out = built.opts.filter((o) => !o.ok);
-    if (!ranked.some((o) => o.id === selectedId)) selectedId = ranked.length ? ranked[0].id : null;
-    factsEl.innerHTML = [
-      ['Equity', money(built.equity) + ' · ' + Math.round(built.eqPct * 100) + '%'],
-      ['New home closes', '~' + fmtDate(dateAt(s.T))],
-      ['Time on the market', months(a.S)],
-      ['Planning for', { once: 'One move', certain: 'Certainty', net: 'Top dollar', easy: 'Least hassle' }[s.priority]]
-    ].map((f) => '<div class="fact"><div class="k">' + f[0] + '</div><div class="v">' + f[1] + '</div></div>').join('');
-    $('#options').innerHTML = ranked.map(renderOption).join('');
-    $('#ruled').hidden = out.length === 0;
-    $('#ruled').innerHTML = '<b>Not a fit right now</b><ul>' + out.map((o) => '<li><b>' + o.name + ':</b> ' + o.reason + '.</li>').join('') + '</ul>';
-    const sel = ranked.find((o) => o.id === selectedId);
-    if (sel) { renderTimeline(sel); renderPlan(sel, s); }
-  }
+    setHTML('m1', m1); setHTML('t1', 'None'); setHTML('x1', x1); setHTML('l1', l1);
+    setHTML('w1', w1); $('w1').classList.toggle('warn', gap > 1 || gap <= 0);
 
-  function markReal() {
-    if (!isExample) return;
-    isExample = false;
-    $('#exampleText').textContent = 'Planning a real buyer. Nothing here is saved.';
-  }
-
-  $('#form').addEventListener('input', (e) => {
-    if (e.target.name === 'homeType') $('#monthsToClose').value = e.target.value === 'build' ? 7 : 1.5;
-    markReal(); render();
-  });
-  $('#form').addEventListener('submit', (e) => e.preventDefault());
-  document.querySelector('.assumptions').addEventListener('input', render);
-  $('#options').addEventListener('click', (e) => {
-    const b = e.target.closest('[data-pick]');
-    if (!b) return;
-    selectedId = b.dataset.pick; render();
-    document.querySelector('#timeline').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
-  });
-  $('#clearBtn').addEventListener('click', () => {
-    ['name', 'value', 'payoff', 'payment', 'rent'].forEach((id) => { $('#' + id).value = ''; });
-    isExample = false;
-    $('#exampleText').textContent = 'New buyer. Nothing here is saved.';
-    selectedId = null; render(); $('#name').focus();
-  });
-
-  function copy(text, btn, flag) {
-    const done = () => { flag.hidden = false; setTimeout(() => { flag.hidden = true; }, 1600); };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done).catch(() => fallback());
-    } else { fallback(); }
-    function fallback() {
-      const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); done(); } catch (err) { /* left selected for a manual copy */ }
-      ta.remove();
+    // Way 2: buy first. Move at T, prep, then S months to sell.
+    var N = PREP + S, pay = M * N, w2, x2, l2, t2, warn2 = false;
+    if (!prog) {
+      setHTML('how2', 'Close on your new home and move once. Then sell your old home empty.');
+      t2 = 'About ' + months(N);
+      x2 = money(pay) + '<small>In house payments, from your pocket</small>';
+      l2 = money(Y - pay);
+      setHTML('fit2', '<b>Good fit if</b> you can carry both payments and want one move.');
+      w2 = 'Your lender has to qualify you with both payments. If your home sells slower, add about ' + money(M) + ' for each extra month.';
+    } else {
+      var fee = V * F / 100, cost = fee + PROGRAM_CLOSING + pay;
+      setHTML('how2', 'A program lends against your equity, so you buy now, move once, and sell your old home empty.');
+      t2 = 'About ' + months(N) + '<small>Paid from your equity, not your pocket</small>';
+      x2 = money(cost) + '<small>' + money(fee) + ' fee, about $1,850 in closing costs, ' + money(pay) + ' in payments</small>';
+      l2 = money(Y - cost);
+      setHTML('fit2', '<b>Good fit if</b> you have solid equity and want one move with no deadline.');
+      if (V < 150000 || room < 25000) {
+        warn2 = true;
+        w2 = 'At these numbers there may not be enough equity. The example program caps what you owe, plus its loan, at 75% of your home’s value.';
+      } else {
+        w2 = 'You could tap up to about ' + money(room) + ' before you sell. ' + (N > 6
+          ? 'Your sale runs past 6 months, when the example program’s interest-free period ends and its offer to buy your home kicks in.'
+          : 'The example program charges no interest for 6 months, and backs you with an offer to buy your home if it hasn’t sold by then.');
+      }
     }
-  }
-  $('#copyText').addEventListener('click', (e) => copy($('#buyerText').value, e.currentTarget, $('#copiedText')));
-  $('#copyTasks').addEventListener('click', (e) => copy($('#tasks').dataset.copy || '', e.currentTarget, $('#copiedTasks')));
+    setHTML('m2', '1'); setHTML('t2', t2); setHTML('x2', x2); setHTML('l2', l2);
+    setHTML('w2', w2); $('w2').classList.toggle('warn', warn2);
 
+    // Way 3: home-sale contingency. List now; the sale has T months to land.
+    var cushion = T - S, w3;
+    if (cushion >= 1) w3 = 'If you list now, your home has about ' + months(cushion) + ' of cushion to sell before move-in. The new home stays on the market while you sell, and another buyer can still make an offer.';
+    else if (cushion >= 0) w3 = 'Tight. Your home would need to sell right on time. If another buyer makes an offer on your new home first, you get a short window to drop the contingency.';
+    else w3 = 'Your home needs about ' + months(S) + ' to sell, but you want to move in about ' + months(T) + '. This way works better with a home that’s ready later.';
+    setHTML('m3', '1'); setHTML('t3', 'None'); setHTML('x3', '$0'); setHTML('l3', money(Y));
+    setHTML('w3', w3); $('w3').classList.toggle('warn', cushion < 1);
+
+    updateTexts();
+  }
+
+  var WAY = {
+    1: 'Way 1 (sell first, then buy) looks closest.',
+    2: 'Way 2 (buy first, then sell) looks closest.',
+    '2p': 'Way 2 (buy first with a buy-before-you-sell program) looks closest.',
+    3: 'Way 3 (buy with a home-sale contingency) looks closest.'
+  };
+  function smsBody(way) {
+    var s = state;
+    var base = 'Hi Charles, I ran your sell-and-buy calculator. My home might sell for about ' + exact(s.V) + ', I owe about ' + exact(s.P) +
+      ', and I’d like to move in about ' + months(s.T) + '.';
+    if (way === '0') return base + ' Can you help me figure out which way fits?';
+    var key = way === '2' && s.prog ? '2p' : way;
+    return base + ' ' + WAY[key] + ' Can you check my numbers?';
+  }
+  function updateTexts() {
+    document.querySelectorAll('a[data-way]').forEach(function (a) {
+      var body = smsBody(a.getAttribute('data-way'));
+      a.setAttribute('data-sms-body', body);
+      a.setAttribute('href', 'sms:+19843282788?&body=' + encodeURIComponent(body));
+    });
+  }
+
+  var touched = false;
+  var onInput = function () {
+    render();
+    if (!touched) { touched = true; try { if (window.gtag) window.gtag('event', 'calculator_use', { tool: 'sell_and_buy' }); } catch (e) {} }
+  };
+  ids.forEach(function (id) { $(id).addEventListener('input', onInput); });
+  $('cProg').addEventListener('change', function () {
+    onInput();
+    try { if (window.gtag) window.gtag('event', 'calculator_program', { on: $('cProg').checked ? 'yes' : 'no' }); } catch (e) {}
+  });
   render();
 })();
 </script>
-
+<script src="/site.js?v=202610151400" defer></script>
+<!-- Start of HubSpot Embed Code (chat) -->
+<script>window.hsConversationsSettings = { loadImmediately: false };</script>
+<script type="text/javascript" id="hs-script-loader" async defer src="https://js-na2.hs-scripts.com/247617862.js"></script>
+<!-- End of HubSpot Embed Code -->
 </body>
 </html>
