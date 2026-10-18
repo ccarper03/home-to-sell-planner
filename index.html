@@ -293,15 +293,15 @@ footer { font-size: 13px; color: var(--muted); max-width: 90ch; }
       <label class="field"><span>Mark Spain listing commission, %</span><input type="number" id="msPct" step="0.25" value="3.5"><span class="src">About 3.5%, per a June 2026 review.</span></label>
       <label class="field"><span>Buyer's agent commission, %</span><input type="number" id="buyerAgentPct" step="0.25" value="2.5"><span class="src">Used for Mark Spain, if the seller pays it. Negotiable; your traditional figure above already includes it.</span></label>
       <label class="field"><span>Mark Spain cash offer, % of value</span><input type="number" id="msCashPct" step="1" value="75"><span class="src">Cash offers often run 60 to 80% of market value.</span></label>
-      <label class="field"><span>Knock program fee, %</span><input type="number" id="knockPct" step="0.25" value="2"><span class="src">Example only. Knock quotes a fee based on the old home's list price.</span></label>
+      <label class="field"><span>Knock program fee, %</span><input type="number" id="knockPct" step="0.25" value="2.25"><span class="src">Knock's contract fee: 2.25% of the old home's estimated list price, plus about $1,850 in loan closing costs (October 2026).</span></label>
       <label class="field"><span>Cost of one move</span><div class="money"><input type="number" id="moveCost" step="250" value="2500"></div><span class="src">Example. Movers, truck, time off.</span></label>
     </div>
     <div class="sources">
-      <b>Sources, opened October 5, 2026</b>
+      <b>Sources, opened October 5, 2026 (Knock updated October 18, 2026)</b>
       <ul>
         <li><a href="https://www.opendoor.com/articles/how-selling-to-opendoor-compares-to-a-traditional-home-sale" target="_blank" rel="noopener">Selling to Opendoor vs. a traditional sale</a>, Opendoor: close in 21 to 60 days, closing costs 1 to 3%</li>
         <li><a href="https://www.realestatewitch.com/opendoor-hidden-fees/" target="_blank" rel="noopener">Opendoor fees</a>, Real Estate Witch: 5% example fee, repairs extra</li>
-        <li><a href="https://nfmlending.com/knock-homeswap-loan/" target="_blank" rel="noopener">Knock HomeSwap</a>, NFM Lending: about 30% equity, up to 6 months of current payments covered, up to $35,000 for prep</li>
+        <li><a href="https://sb-assets.knock.com/f/1005183/x/ab0c52b213/knock-bridge-loan-guide.pdf" target="_blank" rel="noopener">Knock Bridge Loan guide</a> and <a href="https://sb-assets.knock.com/f/1005183/x/2114bcf025/knock-bridge-loan-matrix-7-2026.pdf" target="_blank" rel="noopener">July 2026 matrix</a>, Knock: 2.25% contract fee plus about $1,850 in closing costs, 0% interest for 6 months, total debt on the old home up to 75% of its value, old home worth $150,000 or more, up to $35,000 for prep and $5,000 for moving, list within 45 days of the new closing, backup offer if unsold after 6 months</li>
         <li><a href="https://markspain.com/blog/how-does-the-guaranteed-offer-program-work" target="_blank" rel="noopener">Guaranteed Offer program</a>, Mark Spain: serves Raleigh, offers in about 5 business days, close in as few as 21 days</li>
         <li><a href="https://www.realestatewitch.com/mark-spain-real-estate/" target="_blank" rel="noopener">Mark Spain review</a>, Real Estate Witch: listing agreement required, about 3.5% commission, cash offers 60 to 80% of value</li>
       </ul>
@@ -498,22 +498,23 @@ footer { font-size: 13px; color: var(--muted); max-width: 90ch; }
       const overlap = soldAt - T;
       const covered = Math.min(6, overlap);
       const own = Math.max(0, overlap - 6);
-      const ok = eqPct >= 0.3;
+      const room = s.value * 0.75 - s.payoff;
+      const ok = s.value >= 150000 && room >= 25000;
       opts.push({
         id: 'knock', name: 'Knock: buy before you sell', ok, cond: ok,
-        reason: 'Knock looks for about 30% equity, and they have ' + Math.round(eqPct * 100) + '%',
-        how: 'Knock unlocks their equity so they buy with no contingency and move once. It covers the current mortgage for up to 6 months while the empty home sells with their own agent.',
+        reason: s.value < 150000 ? 'Knock needs the old home to be worth at least $150,000' : 'Knock caps total debt on the old home at 75% of its value, and they owe ' + Math.round((1 - eqPct) * 100) + '%, which leaves too little to borrow',
+        how: 'Knock’s bridge loan unlocks their equity so they buy with no contingency and move once. The bridge can pay the current mortgage, interest-free for 6 months, while the empty home sells with their own agent.',
         moves: 1, overlap: own, gap: 0, certainty: 'High', ease: 3, keepsAgent: 'Yes',
-        net: s.value * (1 - a.tradPct / 100 - a.knockPct / 100) - s.payoff - a.moveCost - s.payment * own,
-        watch: '<b>There’s a program fee.</b> Get Knock’s quote, and confirm it works with their lender and a builder purchase.',
+        net: s.value * (1 - a.tradPct / 100 - a.knockPct / 100) - s.payoff - 1850 - a.moveCost - s.payment * overlap,
+        watch: '<b>There’s a program fee:</b> ' + a.knockPct + '% of the list price plus about $1,850. Old payments made by the bridge come out of the sale. If it hasn’t sold in 6 months, Knock buys it at a price set up front. Confirm it works with their lender and a builder purchase.',
         rows: {
           old: [[0, T, 'Living here', 'own'], [T, listAt, 'Prep', 'prep'], [listAt, soldAt, 'On the market', 'listed']],
           nw: [[0, T, s.homeType === 'build' ? 'Build' : 'Contract to close', 'build'], [T, soldAt + 1, 'Theirs', 'newhome']],
           live: [[0, T, 'Current home', 'own'], [T, soldAt + 1, 'New home', 'newhome']],
-          pay: [[0, T, 'One', 'one'], [T, T + covered, 'Old payment covered', 'covered']].concat(own > 0 ? [[T + 6, soldAt, 'Two payments', 'two']] : []).concat([[soldAt, soldAt + 1, 'One', 'one']])
+          pay: [[0, T, 'One', 'one'], [T, T + covered, 'Old payment from the bridge', 'covered']].concat(own > 0 ? [[T + 6, soldAt, 'Two payments', 'two']] : []).concat([[soldAt, soldAt + 1, 'One', 'one']])
         },
         moveAt: [T],
-        steps: [[0.1, 'Apply with Knock and get the fee quote'], [0.4, 'Knock approval and new home pre-approval'], [0.5, 'Sign on the new home, no contingency'], [T, 'Close on the new home and move in'], [listAt, 'List the old home with their agent'], [Math.min(soldAt, T + 6), 'Old home sells (Knock covers up to 6 months)']]
+        steps: [[0.1, 'Apply with Knock and get the fee quote'], [0.4, 'Knock approval and new home pre-approval'], [0.5, 'Sign on the new home, no contingency'], [T, 'Close on the new home and move in'], [listAt, 'List the old home with their agent'], [Math.min(soldAt, T + 6), 'Old home sells (the bridge carries the payment, 0% for 6 months)']]
       });
     })();
 
