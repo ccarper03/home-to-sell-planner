@@ -1,6 +1,6 @@
 # Sell & Buy Calculator
 
-Live at [charlescarper.com/home-to-sell-planner/](https://charlescarper.com/home-to-sell-planner/).
+**Moved (Oct 22, 2026).** The calculator now lives on the main site at [charlescarper.com/plan/sell-and-buy/](https://charlescarper.com/plan/sell-and-buy/) (source: `js/sell-buy-calc.js` in ccarper03.github.io). `index.html` and `classic.html` here only forward old links there. The notes below describe the original page.
 
 A one-page calculator for buyers who have a home to sell. Four sliders (what the home might sell for, what's owed, the monthly payment, and when they want to move in) drive three side-by-side ways to do it:
 
